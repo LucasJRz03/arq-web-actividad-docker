@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 const PARTICIPANT_ID = "1f7b226a-5833-4ac3-8de7-fafccb079bf8";
 
 export default function EnrollmentIsland({ activityId }) {
-  // Definición de los estados. 
   // 'isEnrolled' empieza en false. 'loading' empieza en true (porque al cargar, aún no tenemos la respuesta).
   const [isEnrolled, setIsEnrolled] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -84,6 +83,3 @@ export default function EnrollmentIsland({ activityId }) {
     </div>
   );
 }
-
-// persona: 1f7b226a-5833-4ac3-8de7-fafccb079bf8
-// actividad: 1b470ddf-3e84-4b77-9aae-091d21e52bd6
