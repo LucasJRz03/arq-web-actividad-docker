@@ -1,0 +1,18 @@
+.DS_Store
+
+# Python / Django
+__pycache__/
+*.py[cod]
+
+.venv/
+venv/
+# base de datos local
+backend/db.sqlite3
+
+# Node / Vite / Astro
+.frontend/
+
+
+# Editors
+.idea/
+.vscode/

@@ -1,0 +1,45 @@
+---
+import EnrollmentsIsland from '../../components/EnrollmentIsland.jsx';
+
+// Esta función es obligatoria en rutas dinámicas estáticas (SSG).
+// Astro la ejecutará durante el "build" para saber cuántas páginas HTML crear.
+export async function getStaticPaths() {
+  // Consultamos todas las actividades a tu API
+  const response = await fetch("http://127.0.0.1:8000/api/v1/activities");
+  const activities = await response.json();
+  
+  // Le devuelve a Astro un arreglo con las rutas y los datos.
+  // Por cada actividad, Astro generará una página.
+  return activities.map((activity) => ({
+    params: { id: activity.id }, // Esto define la URL (ej. /activities/1b470ddf-...)
+    props: { activity },         // Esto pasa los datos de la actividad a la parte visual
+  }));
+}
+
+// Acá recibe los datos (props) de la actividad específica que se está construyendo
+const { activity } = Astro.props;
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>{activity.title}</title>
+  </head>
+  <body>
+    <!-- Renderiza la información estática en el HTML -->
+    <article style="border: 1px solid #333; padding: 2rem; max-width: 600px; margin: 2rem auto;">
+      <h1>{activity.title}</h1>
+      <p><strong>Fecha de inicio:</strong> {activity.starts_at}</p>
+      <p><strong>Capacidad total:</strong> {activity.capacity}</p>
+      
+      <hr />
+      
+      <!-- Isla de React para la inscripción -->
+      <!-- client:load obliga al navegador a descargar y ejecutar el JavaScript de React para esta sección -->
+      <EnrollmentsIsland client:load activityId={activity.id} />
+
+      <br />
+      <a href="/activities">⬅ Volver al listado</a>
+    </article>
+  </body>
+</html>

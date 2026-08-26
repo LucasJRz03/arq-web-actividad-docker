@@ -1,0 +1,29 @@
+---
+const response = await fetch("http://127.0.0.1:8000/api/v1/activities");
+const activities = await response.json();
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <title>Listado de Actividades</title>
+  </head>
+  <body>
+    <h1>Actividades Disponibles</h1>
+    
+    <ul>
+      {/* Usa .map() para iterar sobre el arreglo que devolvió Django */}
+      {activities.map((activity) => (
+        <li style="margin-bottom: 1rem; border-bottom: 1px solid #ccc; padding-bottom: 1rem;">
+          <h2>{activity.title}</h2>
+          <p><strong>Fecha:</strong> {activity.starts_at}</p>
+          <p><strong>Capacidad Total:</strong> {activity.capacity}</p>
+          <p><strong>Cupos Disponibles:</strong> {activity.available_slots}</p>
+          
+          {/* Enlace a la página de detalle*/}
+          <a href={`/activities/${activity.id}`}>Ver detalle de esta actividad</a>
+        </li>
+      ))}
+    </ul>
+  </body>
+</html>
