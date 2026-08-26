@@ -1,11 +1,9 @@
 # Proy práctica - Django clásico a una API
 
-
-
 El repositorio comienza con dos aplicaciones independientes:
 
 - `backend/`: Django, el modelo `Activity`, SQLite y una vista HTML clásica.
-- `frontend/` o `frontend-astro`: Vite + React + TypeScript recién inicializado, todavía sin integración con Django.
+- `frontend-astro`: Vite + React + TypeScript recién inicializado, todavía sin integración con Django.
 
 ## Puesta en marcha local
 
@@ -75,7 +73,7 @@ Reemplaza la inicialización original basada en Vite para implementar un enfoque
 
 ---
 
-## 🚀 Puesta en Marcha y Ejecución
+## Puesta en Marcha y Ejecución
 
 Para levantar el proyecto y recolectar la evidencia solicitada:
 
