@@ -19,6 +19,9 @@ python manage.py runserver
 
 Abrir <http://127.0.0.1:8000/>.
 
+## Documentación de Ninja
+<http://127.0.0.1:8000/api/v1/docs>
+
 `seed_activities` se puede ejecutar más de una vez: restaura el mismo conjunto de actividades sin duplicarlas.
 
 ## Comandos útiles

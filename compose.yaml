@@ -11,17 +11,17 @@ services:
     volumes:
       - ./backend:/app
 
-  frontend:
+  frontend-astro:
     build:
-      context: ./frontend
+      context: ./frontend-astro
     command: pnpm dev --host 0.0.0.0
     environment:
       VITE_PROXY_TARGET: http://backend:8000
     ports:
       - "5173:5173"
     volumes:
-      - ./frontend:/app
+      - ./frontend-astro:/app
       - frontend_node_modules:/app/node_modules
 
 volumes:
-  frontend_node_modules:
+  frontend-astro_node_modules:

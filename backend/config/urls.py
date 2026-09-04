@@ -1,8 +1,6 @@
+from activities.views import api
 from django.contrib import admin
 from django.urls import include, path
-
-from activities.views import api
-
 
 urlpatterns = [
     path("admin/", admin.site.urls),

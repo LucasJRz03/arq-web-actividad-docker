@@ -37,7 +37,8 @@ class ActivityOut(Schema):
 # ---- openapi
 
 def response_error(status, code, message):
-    return JsonResponse({"error": message, "code": code}, status=status)
+    # Antes: return JsonResponse({"error": message, "code": code}, status=status})
+    return JsonResponse({"code": code, "message": message}, status=status)
 
 @require_GET
 def activity_list(request):
@@ -97,23 +98,37 @@ def my_enrollments_list(request):
     return JsonResponse(payload, safe=False)
 
 def procesar_inscripcion(request, participant, activity):
+    # 1. Idempotencia: verificar si la inscripción ya existe
+    try:
+        enrollment = Enrollment.objects.get(participant=participant, activity=activity)
+        return JsonResponse(serialize_enrollment(enrollment), status=200)
+    except Enrollment.DoesNotExist:
+        pass
+    
+    # 2. Invariante: Control de capacidad (actualizado con el contrato estricto)
     if activity.available_slots <= 0:
-        return response_error(409, "conflict", "La actividad no tiene cupos disponibles")
+        return response_error(409, "capacity_exhausted", "No hay lugares disponibles")
 
+    # 3. Creación de la primera inscripcion
     try:
         enrollment = Enrollment.objects.create(participant=participant, activity=activity)
         return JsonResponse(serialize_enrollment(enrollment), status=201)
     except IntegrityError:
+        # Preventivo para colisiones a nivel de base de datos
         return response_error(409, "conflict", "El participante ya está inscripto")
+
 
 def procesar_cancelacion(request, participant, activity):
     try:
         enrollment = Enrollment.objects.get(participant=participant, activity=activity)
         enrollment.delete()
-        return JsonResponse({}, status=204)
     except Enrollment.DoesNotExist:
-        return response_error(404, "not_found", "Inscripción no encontrada")
+        # si ya existe, ignora el error
+        pass 
+    # en ambos casos (se borró recién o ya estaba borrado), devuelve 204
+    return JsonResponse({}, status=204)
 
+# devuelve 405 si no recibe uno de estos métodos
 @require_http_methods(["PUT", "DELETE"])
 @csrf_exempt
 def activity_enrollment_api_put_delete(request, activity_id):

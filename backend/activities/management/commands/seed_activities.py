@@ -23,7 +23,7 @@ ACTIVITIES = [
     {
         "id": UUID("80c08526-3da1-4f0a-845c-740fa33f1f50"),
         "title": "Taller de integración",
-        "starts_at": timezone.make_aware(datetime(2026, 3, 27, 17, 0)),
+        "starts_at": timezone.make_aware(datetime(2026, 3, 27, 17, 0)), 
         "capacity": 20,
     },
 ]
