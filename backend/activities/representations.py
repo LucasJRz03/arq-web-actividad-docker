@@ -12,8 +12,25 @@ def serialize_activity(activity, include_available_slots=True) -> dict:
         data["available_slots"] = activity.available_slots
     return data
 
+# funcion para la versión 2
+def serialize_activity_2(activity) -> dict:
+    """Serialize una actividad con available"""
+    data = {
+        "id": str(activity.id),
+        "title": activity.title,
+        "starts_at": timezone.localtime(activity.starts_at).isoformat(),
+        "availability": {
+            "capacity": activity.capacity,
+            "available_slots": activity.available_slots,
+        }
+    }
+    return data
+
 def serialize_activities(activities) -> list:
     return [serialize_activity(activity) for activity in activities]
+
+def serialize_activities_2(activities) -> list: 
+    return [serialize_activity_2(activity) for activity in activities]
 
 def serialize_enrollment(enrollment) -> dict:
     """Serializa una inscripción."""

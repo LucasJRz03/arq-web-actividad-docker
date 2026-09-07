@@ -27,6 +27,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "activities.middleware.CorrelationIdMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -84,3 +85,26 @@ CORS_ALLOW_HEADERS = [
     "x-requested-with",
     "x-participant-id", 
 ]
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'json_formatter': {
+            '()': 'activities.log_formatters.JsonFormatter',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'json_formatter',
+        },
+    },
+    'loggers': {
+        'actividad_logger': { 
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+    },
+}
