@@ -35,7 +35,7 @@ services:
   frontend-astro:
     build:
       context: ./frontend-astro
-    command: sh -c "rm -rf .astro && pnpm astro preview stop || true && pnpm astro preview --host 0.0.0.0 --port 4321"
+    command: sh -c "rm -rf .astro && pnpm build && pnpm astro preview --host 0.0.0.0 --port 4321"
     environment:
       VITE_PROXY_TARGET: http://backend:8000
     volumes:

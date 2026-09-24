@@ -5,6 +5,7 @@ from django.core.management.base import BaseCommand
 from django.utils import timezone
 
 from activities.models import Activity
+from activities.models import Participant
 
 
 ACTIVITIES = [
@@ -35,6 +36,10 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         expected_ids = [activity["id"] for activity in ACTIVITIES]
         Activity.objects.exclude(id__in=expected_ids).delete()
+        Participant.objects.get_or_create(
+            id="1f7b226a-5833-4ac3-8de7-fafccb079bf8",
+            defaults={"name": "Estudiante de Prueba"}
+        )
 
         for activity in ACTIVITIES:
             activity_id = activity["id"]
