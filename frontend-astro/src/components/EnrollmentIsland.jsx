@@ -11,7 +11,7 @@ export default function EnrollmentIsland({ activityId }) {
   // useEffect se ejecuta automáticamente cuando la isla aparece en el navegador.
   useEffect(() => {
     // GET a API de Django enviando el header requerido
-    fetch("http://127.0.0.1:8000/api/v1/me/enrollments", {
+    fetch("/api/v1/me/enrollments", {
       method: "GET",
       headers: {
         "X-Participant-Id": PARTICIPANT_ID
@@ -38,7 +38,7 @@ export default function EnrollmentIsland({ activityId }) {
     setErrorMsg(null);   // Limpia errores anteriores
 
     try {
-      const response = await fetch(`http://127.0.0.1:8000/api/v1/me/enrollments/${activityId}`, {
+      const response = await fetch(`/api/v1/me/enrollments/${activityId}`, {
         method: "PUT",
         headers: { "X-Participant-Id": PARTICIPANT_ID }
       });

@@ -5,7 +5,7 @@ import EnrollmentsIsland from '../../components/EnrollmentIsland.jsx';
 // Astro la ejecutará durante el "build" para saber cuántas páginas HTML crear.
 export async function getStaticPaths() {
   // Consultamos todas las actividades a tu API
-  const response = await fetch("http://127.0.0.1:8000/api/v1/activities");
+  const response = await fetch("http://backend:8000/api/v1/activities");
   const activities = await response.json();
   
   // Le devuelve a Astro un arreglo con las rutas y los datos.
